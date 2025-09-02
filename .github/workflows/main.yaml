@@ -2,8 +2,10 @@ name: Rust Test and Launch
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+  pull_request:
+    branches: [main]
 
   workflow_dispatch:
 
