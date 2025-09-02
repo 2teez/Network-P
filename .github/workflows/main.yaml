@@ -1,0 +1,39 @@
+name: Rust Test and Launch
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  set-up:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: set-up
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: clippy, rustfmt
+
+  test:
+    runs-on: ubuntu-latest
+    needs: set-up
+    steps:
+      - uses: actions/checkout@v5
+      - name: testing
+        run: |
+          cargo check
+          cargo test
+
+  build:
+    runs-on: ubutu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v5
+      - name: build
+        run: cargo build
