@@ -10,4 +10,8 @@ path = "src/lib.rs"
 name = "main"
 path = "src/bin/main.rs"
 
+[[bin]]
+name = "main2"
+path = "src/bin/tcp-client.rs"
+
 [dependencies]
