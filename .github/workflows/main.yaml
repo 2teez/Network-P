@@ -14,8 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Cache rust installations
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFile('**/Cargo.lock') }}
       - name: set-up
         uses: actions-rs/toolchain@v1
         with:
@@ -27,7 +35,14 @@ jobs:
     needs: set-up
     steps:
       - uses: actions/checkout@v5
-
+      - name: Cache rust installations
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFile('**/Cargo.lock') }}
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -52,7 +67,14 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v5
-
+      - name: Cache rust installations
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFile('**/Cargo.lock') }}
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
